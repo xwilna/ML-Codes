@@ -7,10 +7,10 @@ from sklearn.datasets import load_diabetes
 
 diabetes =load_diabetes()
 
-X = diabetes.data
+x = diabetes.data
 y = diabetes.target
 
-x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.8, shuffle=False)
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, shuffle=False)
 
 model = LinearRegression(n_jobs=-1)
 
