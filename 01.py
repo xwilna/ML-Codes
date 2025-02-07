@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import yfinance as yf
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import root_mean_squared_error
 from sklearn.model_selection import train_test_split
@@ -15,7 +14,6 @@ x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.8, shuffl
 
 model = LinearRegression(n_jobs=-1)
 
-# Train
 model.fit(x_train, y_train)
 
 y_pred = model.predict(x_test)
@@ -28,6 +26,3 @@ plt.plot( y_pred, 'r', label='Predicted Data')
 
 plt.legend()
 plt.show()
-
-
-print(model.intercept_, model.coef_)
