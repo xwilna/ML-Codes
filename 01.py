@@ -1,28 +1,42 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import root_mean_squared_error
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_diabetes
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.datasets import fetch_openml
+from sklearn.metrics import accuracy_score
+from sklearn.utils import compute_class_weight
 
-diabetes =load_diabetes()
 
-x = diabetes.data
-y = diabetes.target
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, shuffle=False)
+# Ensemble
+# Boosting
 
-model = LinearRegression(n_jobs=-1)
+mnist = fetch_openml("mnist_784")
+X,y = mnist.data, mnist.target
 
-model.fit(x_train, y_train)
+# Model 1
+logistic_model = LogisticRegression()
+logistic_model.fit(X, y)
+y_pred = logistic_model.predict(X)
 
-y_pred = model.predict(x_test)
+wrong_ = y[y != y_pred]
+print(wrong_)
+print(len(wrong_))
+print(accuracy_score(y, y_pred))
 
-rmse = root_mean_squared_error(y_test, y_pred)
-print(rmse)
+# Predict 1
+# sample_weight = np.ones_like(y)
 
-plt.plot( y_test, 'b', label='Real Data')
-plt.plot( y_pred, 'r', label='Predicted Data')
+# correct_ = y[y == y_pred]  --> weight 1
+# wrong_ = y[y != y_pred]    --> weight 2
+# sample_weight[y!=y_pred] *= 1.2
 
-plt.legend()
-plt.show()
+
+# Model 2
+# svm_model = SVC(class_weight=compute_class_weight('balanced', np.unique(y), y))   # Dict --> len(unique(y))
+# svm_model.fit(X, y, sample_weight=sample_weight)                                  # List --> len(X)
+
+
+# outlier
+# 10
+# 2*10 == 20
+# overfit
