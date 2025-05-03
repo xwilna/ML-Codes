@@ -65,9 +65,6 @@ def build_and_train_model(X_train, y_train):
 def evaluate_model(model, X_test, y_test):
     y_pred = model.predict(X_test)
     
-    print("دقت مدل: {:.2f}%".format(accuracy_score(y_test, y_pred) * 100))
-    print("\nگزارش طبقه‌بندی:\n", classification_report(y_test, y_pred))
-    
     return y_pred
 
 def main():
